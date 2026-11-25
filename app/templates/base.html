@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SereneMind — Mental Health Chatbot System{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  {% block navbar %}
+  <header class="top-nav">
+    <div class="container nav-inner">
+      <a href="{{ url_for('auth.index') }}" class="brand">
+        <span class="brand-mark" aria-hidden="true">SM</span>
+        <span class="brand-text">SereneMind</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        {% if g.user %}
+          <a href="{{ url_for('chat.chat_page') }}" class="nav-link">Chat Space</a>
+          <span class="nav-user">Hi, {{ g.user.full_name }}</span>
+          <a href="{{ url_for('auth.logout') }}" class="btn btn-outline btn-sm">Log Out</a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="nav-link">Log In</a>
+          <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-sm">Get Started</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+  {% endblock %}
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-stack" role="status" aria-live="polite">
+        {% for category, message in messages %}
+          <div class="flash-banner flash-{{ category }}">
+            <span>{{ message }}</span>
+            <button type="button" class="flash-close" aria-label="Dismiss message" onclick="this.parentElement.remove()">&times;</button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block footer %}
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>SereneMind Mental Health Chatbot System &middot; Powered by Flask, Rasa NLU &amp; Sentiment Analysis.</p>
+      <p class="footer-note">Supportive guidance only — not a substitute for professional clinical diagnosis or emergency care.</p>
+    </div>
+  </footer>
+  {% endblock %}
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

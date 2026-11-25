@@ -1,0 +1,77 @@
+version: "3.1"
+
+rules:
+- rule: Greet user warmly
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Say goodbye gently
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Explain chatbot identity
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Respond to thank you
+  steps:
+  - intent: thank_you
+  - action: utter_thank_you
+
+- rule: Explain how chatbot helps
+  steps:
+  - intent: ask_help
+  - action: utter_ask_help
+
+- rule: Handle positive mood with therapist sentiment action
+  steps:
+  - intent: mood_great
+  - action: action_therapist_sentiment_response
+
+- rule: Handle neutral mood with therapist sentiment action
+  steps:
+  - intent: mood_neutral
+  - action: action_therapist_sentiment_response
+
+- rule: Handle sad mood with therapist sentiment action
+  steps:
+  - intent: mood_sad
+  - action: action_therapist_sentiment_response
+
+- rule: Handle anxious mood with therapist sentiment action
+  steps:
+  - intent: mood_anxious
+  - action: action_therapist_sentiment_response
+
+- rule: Handle stressed mood with therapist sentiment action
+  steps:
+  - intent: mood_stressed
+  - action: action_therapist_sentiment_response
+
+- rule: Handle angry mood with therapist sentiment action
+  steps:
+  - intent: mood_angry
+  - action: action_therapist_sentiment_response
+
+- rule: Handle sleep issues with therapist sentiment action
+  steps:
+  - intent: sleep_issues
+  - action: action_therapist_sentiment_response
+
+- rule: Handle crisis intent with immediate support
+  steps:
+  - intent: crisis_self_harm
+  - action: action_therapist_sentiment_response
+
+- rule: Recommend video explicitly on request
+  steps:
+  - intent: request_video
+  - action: action_recommend_video
+
+- rule: Fallback to therapist sentiment analysis on free-form text
+  steps:
+  - intent: nlu_fallback
+  - action: action_therapist_sentiment_response

@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% block title %}Chat Space — SereneMind{% endblock %}
+{% block body_class %}chat-body{% endblock %}
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="chat-shell" data-db-backend="{{ db_backend }}">
+  <!-- Left Sidebar: User & Conversations -->
+  <aside class="sidebar" id="chatSidebar" aria-label="Conversations">
+    <div class="sidebar-top">
+      <a href="{{ url_for('auth.index') }}" class="brand">
+        <span class="brand-mark" aria-hidden="true">SM</span>
+        <span class="brand-text">SereneMind</span>
+      </a>
+      <button type="button" class="btn btn-primary btn-block" id="newChatBtn">
+        + New Conversation
+      </button>
+    </div>
+
+    <div class="sidebar-section-label">Your Check-Ins</div>
+    <ul class="session-list" id="sessionList">
+      {% for s in sessions %}
+        <li class="session-item" data-session-id="{{ s.id }}">
+          <button type="button" class="session-select-btn" data-session-id="{{ s.id }}">
+            <span class="session-title">{{ s.title }}</span>
+          </button>
+          <button type="button" class="session-delete-btn" data-session-id="{{ s.id }}" title="Delete conversation" aria-label="Delete conversation">&times;</button>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" aria-hidden="true">{{ user.full_name[:1]|upper }}</div>
+      <div class="user-meta">
+        <strong>{{ user.full_name }}</strong>
+        <small>@{{ user.username }}</small>
+      </div>
+      <a href="{{ url_for('auth.logout') }}" class="btn btn-outline btn-sm">Log Out</a>
+    </div>
+  </aside>
+
+  <!-- Center Panel: Therapist Conversation -->
+  <section class="chat-main" aria-label="Therapist Chat">
+    <header class="chat-topbar">
+      <div class="topbar-left">
+        <button type="button" class="mobile-toggle-btn" id="toggleSidebarBtn" aria-label="Toggle conversations">&#9776;</button>
+        <div>
+          <h1 id="activeSessionTitle">Mental Health Check-In</h1>
+          <div class="status-pills">
+            <span class="status-pill {{ 'status-online' if rasa_connected else 'status-fallback' }}" id="engineBadge">
+              {{ 'Rasa NLU Active' if rasa_connected else 'Local NLU Mode' }}
+            </span>
+            <span class="status-pill status-db" id="dbBadge">
+              DB: {{ db_backend|upper }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="mobile-toggle-btn" id="toggleInsightsBtn" aria-label="Toggle mood insights">Insights</button>
+    </header>
+
+    <div class="chat-messages" id="chatMessages" aria-live="polite">
+      <div class="welcome-card" id="welcomeCard">
+        <span class="pill-badge">Safe &amp; Confidential Space</span>
+        <h2>How are you feeling right now, {{ user.full_name.split()[0] }}?</h2>
+        <p>
+          Share what is on your mind. Every message is gently analyzed for positive, neutral, or negative
+          sentiment so I can respond thoughtfully and recommend helpful videos.
+        </p>
+        <div class="starter-chips" id="starterChips">
+          <button type="button" class="chip-btn" data-prompt="I am feeling really anxious and worried today.">Feeling anxious</button>
+          <button type="button" class="chip-btn" data-prompt="Work has me so stressed out and overwhelmed.">Feeling stressed</button>
+          <button type="button" class="chip-btn" data-prompt="Today was okay, just a normal routine day.">Steady / neutral day</button>
+          <button type="button" class="chip-btn" data-prompt="I am feeling really happy and grateful today!">Feeling positive &amp; grateful</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="typing-indicator" id="typingIndicator" hidden>
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+      <span>Reflecting on what you shared...</span>
+    </div>
+
+    <form class="chat-composer" id="chatForm">
+      <label for="messageInput" class="sr-only">Share how you feel</label>
+      <textarea
+        id="messageInput"
+        rows="1"
+        maxlength="2000"
+        placeholder="Type how you are feeling today... (Press Enter to send)"
+        required
+      ></textarea>
+      <button type="button" class="icon-btn" id="voiceBtn" title="Speak your message" aria-label="Voice input" hidden>
+        &#127908;
+      </button>
+      <button type="submit" class="btn btn-primary send-btn" id="sendBtn">Send</button>
+    </form>
+  </section>
+
+  <!-- Right Panel: Sentiment & Communication Pattern Insights + Video Shelf -->
+  <aside class="insights-panel" id="insightsPanel" aria-label="Mood Insights & Video Library">
+    <div class="insights-card">
+      <div class="insights-header">
+        <h2>Mood &amp; Pattern Insights</h2>
+        <span class="trend-badge trend-initial" id="trendBadge">Initial</span>
+      </div>
+      <div class="insights-stats">
+        <div class="stat-box">
+          <small>Dominant</small>
+          <strong id="dominantSentiment">Neutral</strong>
+        </div>
+        <div class="stat-box">
+          <small>Avg Score</small>
+          <strong id="avgScore">0.00</strong>
+        </div>
+        <div class="stat-box">
+          <small>Check-Ins</small>
+          <strong id="totalLogs">0</strong>
+        </div>
+      </div>
+
+      <div class="sentiment-bars">
+        <div class="bar-row">
+          <span>Positive</span>
+          <div class="bar-track"><div class="bar-fill fill-positive" id="posBar" style="width: 0%"></div></div>
+          <span class="bar-pct" id="posPct">0%</span>
+        </div>
+        <div class="bar-row">
+          <span>Neutral</span>
+          <div class="bar-track"><div class="bar-fill fill-neutral" id="neuBar" style="width: 0%"></div></div>
+          <span class="bar-pct" id="neuPct">0%</span>
+        </div>
+        <div class="bar-row">
+          <span>Negative</span>
+          <div class="bar-track"><div class="bar-fill fill-negative" id="negBar" style="width: 0%"></div></div>
+          <span class="bar-pct" id="negPct">0%</span>
+        </div>
+      </div>
+
+      <div class="sparkline-wrap">
+        <div class="sparkline-label">
+          <span>Sentiment Trajectory</span>
+          <small>-1.0 to +1.0</small>
+        </div>
+        <svg id="moodSparkline" viewBox="0 0 260 72" width="100%" height="72" aria-label="Mood score timeline"></svg>
+      </div>
+    </div>
+
+    <div class="insights-card library-card">
+      <div class="insights-header">
+        <h2>Video Library</h2>
+      </div>
+      <div class="filter-tabs" id="videoFilterTabs" role="tablist">
+        <button type="button" class="filter-tab active" data-filter="all">All</button>
+        <button type="button" class="filter-tab" data-filter="negative">Calming</button>
+        <button type="button" class="filter-tab" data-filter="neutral">Mindful</button>
+        <button type="button" class="filter-tab" data-filter="positive">Uplifting</button>
+      </div>
+      <div class="library-list" id="videoLibraryList">
+        {% for v in initial_videos %}
+          <div class="library-item" data-sentiment="{{ v.sentiment }}">
+            <img src="{{ v.thumbnail_url }}" alt="{{ v.title }}" loading="lazy">
+            <div class="library-item-body">
+              <span class="sentiment-tag sentiment-{{ v.sentiment }}">{{ v.sentiment|capitalize }} &middot; {{ v.emotion_tag }}</span>
+              <strong>{{ v.title }}</strong>
+              <small>{{ v.channel }} &middot; {{ v.duration_label }}</small>
+              <div class="library-item-actions">
+                <button type="button" class="link-btn watch-video-btn" data-youtube-id="{{ v.youtube_id }}" data-title="{{ v.title }}" data-url="{{ v.url }}">Watch</button>
+                <a href="{{ v.url }}" target="_blank" rel="noopener noreferrer" class="link-btn">YouTube &#8599;</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="crisis-box">
+      <strong>Need immediate human support?</strong>
+      <p>Call or text <strong>988</strong> (US/Canada), text <strong>HOME</strong> to <strong>741741</strong>, or visit <a href="https://findahelpline.com" target="_blank" rel="noopener noreferrer">findahelpline.com</a>.</p>
+    </div>
+  </aside>
+</div>
+
+<!-- Accessible Video Player Modal -->
+<div class="modal-backdrop" id="videoModal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle" hidden>
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2 id="videoModalTitle">Recommended Video</h2>
+      <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close video player">&times;</button>
+    </div>
+    <div class="modal-video-frame">
+      <iframe
+        id="videoIframe"
+        src=""
+        title="Mental Health Support Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="modal-footer">
+      <a id="modalExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Open Directly on YouTube &#8599;</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

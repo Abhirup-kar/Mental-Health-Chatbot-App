@@ -1,0 +1,42 @@
+version: "3.1"
+
+stories:
+- story: greeting then anxious sharing then thank you
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_anxious
+  - action: action_therapist_sentiment_response
+  - intent: thank_you
+  - action: utter_thank_you
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: greeting then neutral check in then video request
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_neutral
+  - action: action_therapist_sentiment_response
+  - intent: request_video
+  - action: action_recommend_video
+
+- story: greeting then positive sharing then goodbye
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: action_therapist_sentiment_response
+  - intent: affirm
+  - action: utter_affirm
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: stressed check in followed by sad follow up
+  steps:
+  - intent: mood_stressed
+  - action: action_therapist_sentiment_response
+  - intent: mood_sad
+  - action: action_therapist_sentiment_response
+  - intent: deny
+  - action: utter_deny

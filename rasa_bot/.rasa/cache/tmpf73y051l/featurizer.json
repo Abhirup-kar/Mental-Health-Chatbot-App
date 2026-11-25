@@ -1,0 +1,61 @@
+{
+  "type": "MaxHistoryTrackerFeaturizer",
+  "state_featurizer": {
+    "action_texts": [],
+    "entity_tag_specs": [],
+    "feature_states": {
+      "intent": {
+        "affirm": 0,
+        "ask_help": 1,
+        "back": 2,
+        "bot_challenge": 3,
+        "crisis_self_harm": 4,
+        "deny": 5,
+        "goodbye": 6,
+        "greet": 7,
+        "mood_angry": 8,
+        "mood_anxious": 9,
+        "mood_great": 10,
+        "mood_neutral": 11,
+        "mood_sad": 12,
+        "mood_stressed": 13,
+        "nlu_fallback": 14,
+        "out_of_scope": 15,
+        "request_video": 16,
+        "restart": 17,
+        "session_start": 18,
+        "sleep_issues": 19,
+        "thank_you": 20
+      },
+      "action_name": {
+        "action_listen": 0,
+        "action_restart": 1,
+        "action_session_start": 2,
+        "action_default_fallback": 3,
+        "action_deactivate_loop": 4,
+        "action_revert_fallback_events": 5,
+        "action_default_ask_affirmation": 6,
+        "action_default_ask_rephrase": 7,
+        "action_two_stage_fallback": 8,
+        "action_unlikely_intent": 9,
+        "action_back": 10,
+        "...": 11,
+        "action_extract_slots": 12,
+        "action_therapist_sentiment_response": 13,
+        "action_recommend_video": 14,
+        "utter_affirm": 15,
+        "utter_ask_help": 16,
+        "utter_deny": 17,
+        "utter_goodbye": 18,
+        "utter_greet": 19,
+        "utter_iamabot": 20,
+        "utter_thank_you": 21
+      },
+      "entities": {},
+      "slots": {},
+      "active_loop": {}
+    }
+  },
+  "remove_duplicates": true,
+  "max_history": 5
+}

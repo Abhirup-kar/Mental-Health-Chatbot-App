@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}SereneMind — Supportive Mental Health Chatbot{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="pill-badge">Rasa NLU &middot; Real-Time Sentiment Support</span>
+      <h1>A calm, private space to talk through how you feel.</h1>
+      <p class="hero-subtitle">
+        SereneMind listens like a supportive conversational companion, detects positive, neutral,
+        and negative emotional patterns in your messages, and recommends curated mental-health
+        videos tailored to your mood.
+      </p>
+      <div class="hero-actions">
+        {% if user %}
+          <a href="{{ url_for('chat.chat_page') }}" class="btn btn-primary btn-lg">Open Your Chat Space</a>
+          <a href="{{ url_for('auth.logout') }}" class="btn btn-outline btn-lg">Log Out</a>
+        {% else %}
+          <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Create Free Account</a>
+          <a href="{{ url_for('auth.login') }}" class="btn btn-outline btn-lg">Log In to Chat</a>
+        {% endif %}
+      </div>
+      <div class="hero-highlights">
+        <div class="highlight-item">
+          <strong>Positive &middot; Neutral &middot; Negative</strong>
+          <span>Real-time sentiment &amp; emotion detection</span>
+        </div>
+        <div class="highlight-item">
+          <strong>Curated Video Care</strong>
+          <span>Matched breathing, mindfulness &amp; TED talks</span>
+        </div>
+        <div class="highlight-item">
+          <strong>Private &amp; Stigma-Free</strong>
+          <span>Your check-ins saved securely to your account</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-preview" aria-hidden="true">
+      <div class="preview-card">
+        <div class="preview-header">
+          <span class="dot-live"></span>
+          <span>SereneMind Therapist Companion</span>
+        </div>
+        <div class="preview-bubble user">
+          "I've been feeling really overwhelmed and anxious about deadlines today."
+        </div>
+        <div class="preview-meta">
+          <span class="sentiment-tag sentiment-negative">Negative &middot; Anxiety</span>
+        </div>
+        <div class="preview-bubble bot">
+          "When demands pile up, feeling overwhelmed is a natural signal that you need breathing room. Try a 4-4-4-4 box breath right now..."
+        </div>
+        <div class="preview-video-chip">
+          <span class="video-chip-icon">&#9654;</span>
+          <div>
+            <strong>Box breathing relaxation technique</strong>
+            <small>Sunnybrook Hospital &middot; 4 min &middot; Recommended for Anxiety</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="container">
+    <h2 class="section-title">How the System Works</h2>
+    <p class="section-subtitle">Three simple steps from account check-in to personalized video support.</p>
+    <div class="steps-grid">
+      <article class="step-card">
+        <span class="step-num">01</span>
+        <h3>Register &amp; Log In</h3>
+        <p>Create your personal account in seconds with encrypted credentials so your check-ins and mood trends stay private to you.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-num">02</span>
+        <h3>Chat with Rasa NLU</h3>
+        <p>Share what's on your mind in natural language. Our Rasa NLU engine and sentiment analyzer evaluate positive, negative, and neutral expressions at every turn.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-num">03</span>
+        <h3>Receive Matched Videos</h3>
+        <p>Get empathetic feedback along with curated YouTube mindfulness, breathing, or uplifting TED videos matched to your current emotional pattern.</p>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,290 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - good afternoon
+    - hi there
+    - hey buddy
+    - greetings
+    - howdy
+    - hiya
+    - nice to meet you
+    - hello chatbot
+    - hi I just logged in
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - good night
+    - talk to you later
+    - have a nice day
+    - catch you later
+    - I have to go now
+    - bye for now
+    - take care
+    - see you soon
+    - signing off now
+    - thanks bye
+    - gotta go
+    - talk soon
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - indeed
+    - of course
+    - that sounds good
+    - sure
+    - definitely
+    - yes please
+    - okay sure
+    - alright
+    - I agree
+    - yes that helps
+    - absolutely
+    - sounds right
+    - yes I would like that
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - never
+    - I don't think so
+    - no thanks
+    - not really
+    - I'd rather not
+    - no way
+    - not right now
+    - don't think that helps
+    - no I am fine without that
+    - pass
+    - negative
+    - not today
+    - I disagree
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot
+    - are you human
+    - who are you
+    - what are you
+    - am I talking to a bot
+    - am I talking to a real therapist
+    - are you an AI
+    - who built you
+    - what can you do
+    - tell me about yourself
+    - are you a person
+    - is this automated
+    - are you a robot
+    - how do you work
+    - what kind of chatbot are you
+
+- intent: thank_you
+  examples: |
+    - thanks
+    - thank you
+    - thank you so much
+    - I appreciate that
+    - thanks a lot
+    - that really helped
+    - grateful for your help
+    - thanks for listening
+    - thank you for supporting me
+    - appreciate your kindness
+    - many thanks
+    - cheers thanks
+    - you are helpful thank you
+    - thank you very much
+    - thanks for the video
+
+- intent: ask_help
+  examples: |
+    - help
+    - how can you help me
+    - what should I say here
+    - I need some emotional support
+    - can you guide me
+    - how does this mental health chatbot work
+    - I don't know where to start
+    - support me please
+    - can we talk about my mental health
+    - what features do you have
+    - I want advice for my mood
+    - how do I use this chat
+    - can you recommend things for my feelings
+    - please help me feel better
+    - I need someone to talk to
+
+- intent: mood_great
+  examples: |
+    - I feel great today
+    - I am feeling really happy and grateful
+    - today was an amazing day
+    - I feel peaceful and hopeful right now
+    - I am super proud of how I handled things today
+    - everything is going wonderfully
+    - I feel energized and motivated
+    - I am so relieved and calm today
+    - life feels really good right now
+    - I am feeling joyful and optimistic
+    - I had a fantastic morning and feel refreshed
+    - I am thankful for my friends and family today
+    - feeling really cheerful and upbeat
+    - I feel confident and thriving today
+    - honestly I feel happy and content
+
+- intent: mood_neutral
+  examples: |
+    - Today was okay, just a normal routine day
+    - I feel pretty neutral today
+    - nothing special happened just an ordinary day
+    - I feel fine, neither good nor bad
+    - just doing alright nothing too exciting
+    - my day has been steady and calm
+    - feeling so-so today
+    - I am doing okay I guess
+    - just a regular workday nothing major
+    - I feel balanced and quiet right now
+    - things are pretty average today
+    - not bad not great just normal
+    - feeling mild and uneventful today
+    - I feel calm and steady at the moment
+    - just checking in on a normal afternoon
+
+- intent: mood_sad
+  examples: |
+    - I feel really sad today
+    - I have been feeling depressed and empty lately
+    - I feel so lonely and isolated
+    - I can't stop crying today
+    - everything feels hopeless right now
+    - I feel worthless and unmotivated
+    - my heart feels heavy and broken
+    - I am having a terrible lonely evening
+    - nothing brings me joy anymore
+    - I feel down and completely drained
+    - I miss having someone who understands me
+    - I am grieving and hurting inside
+    - I am not happy at all today
+    - I feel miserable and left out
+    - sadness just won't leave me alone
+
+- intent: mood_anxious
+  examples: |
+    - I am feeling really anxious and worried
+    - my chest feels tight and I am panicking
+    - I cannot stop overthinking everything
+    - I feel nervous about what is going to happen
+    - I am having an anxiety attack right now
+    - my thoughts are racing and I feel scared
+    - I feel uneasy and restless all day
+    - dread keeps washing over me
+    - I am terrified I am going to fail
+    - my heart is pounding from anxiety
+    - I feel so worried about tomorrow
+    - panic is making it hard to breathe
+    - I am constantly on edge and nervous
+    - my mind won't quiet down with worries
+    - I feel overwhelmed with anxiety
+
+- intent: mood_stressed
+  examples: |
+    - I am so stressed out with work and deadlines
+    - I feel completely overwhelmed and burned out
+    - there is too much pressure on me right now
+    - burnout is hitting me really hard this week
+    - I am exhausted from trying to keep up
+    - everything is piling up and I feel trapped
+    - work stress is driving me crazy
+    - I feel mentally drained and overloaded
+    - I have zero energy left from all this stress
+    - my schedule is crushing me
+    - I feel stretched way too thin today
+    - pressure at school is making me overwhelmed
+    - I am stressed and don't know how to cope
+    - all these responsibilities are exhausting me
+    - I need relief from constant stress
+
+- intent: mood_angry
+  examples: |
+    - I feel so angry and frustrated right now
+    - everything is irritating me today
+    - I am furious about how I was treated
+    - I feel full of rage and resentment
+    - people keep pushing my buttons and I am mad
+    - I am deeply annoyed and losing patience
+    - frustration is building up inside me
+    - I feel upset and irritable all morning
+    - I can't stand this unfair situation
+    - my temper is about to snap
+    - I feel bitter and angry at myself
+    - nothing is working and I am furious
+    - I feel agitated and tense with anger
+    - why does everything make me so mad today
+    - I am really frustrated and tense
+
+- intent: sleep_issues
+  examples: |
+    - I haven't been able to sleep all night
+    - insomnia is ruining my week
+    - I keep waking up at 3 am and can't sleep
+    - I am sleepless and exhausted
+    - my mind races whenever I try to sleep
+    - I have trouble sleeping every single night
+    - nightmares keep waking me up
+    - I lay awake for hours feeling restless
+    - I am so tired because I cannot fall asleep
+    - sleep never comes easily to me anymore
+    - I only slept two hours last night
+    - my sleep schedule is completely broken
+    - I toss and turn all night long
+    - exhaustion from insomnia is making me miserable
+    - how can I calm down enough to sleep
+
+- intent: crisis_self_harm
+  examples: |
+    - I want to kill myself
+    - I don't want to live anymore
+    - I am thinking about ending my life
+    - I feel suicidal right now
+    - I want to hurt myself tonight
+    - there is no reason to live anymore
+    - everyone would be better off if I were dead
+    - I am considering suicide
+    - I want to end it all
+    - I feel like harming myself
+    - I can't go on living like this
+    - I want to die right now
+    - thoughts of self harm won't stop
+    - I feel like taking my own life
+    - I am scared I might hurt myself
+
+- intent: request_video
+  examples: |
+    - can you recommend a video for me
+    - suggest a helpful mental health video
+    - send me a video link for my mood
+    - what video should I watch right now
+    - show me a calming meditation video
+    - can you share a youtube video to help me
+    - I want to watch something soothing
+    - give me a video recommendation
+    - share a breathing exercise video
+    - any good videos for how I feel
+    - recommend a video based on my sentiment
+    - I'd like a video link please
+    - show me recommended videos
+    - play something relaxing for my mind
+    - suggest a positive video to watch

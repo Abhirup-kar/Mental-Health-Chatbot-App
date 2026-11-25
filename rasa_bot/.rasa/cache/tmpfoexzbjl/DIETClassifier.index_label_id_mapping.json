@@ -1,0 +1,18 @@
+{
+  "0": "affirm",
+  "1": "ask_help",
+  "2": "bot_challenge",
+  "3": "crisis_self_harm",
+  "4": "deny",
+  "5": "goodbye",
+  "6": "greet",
+  "7": "mood_angry",
+  "8": "mood_anxious",
+  "9": "mood_great",
+  "10": "mood_neutral",
+  "11": "mood_sad",
+  "12": "mood_stressed",
+  "13": "request_video",
+  "14": "sleep_issues",
+  "15": "thank_you"
+}

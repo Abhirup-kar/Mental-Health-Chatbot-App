@@ -1,0 +1,55 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - thank_you
+  - ask_help
+  - mood_great
+  - mood_neutral
+  - mood_sad
+  - mood_anxious
+  - mood_stressed
+  - mood_angry
+  - sleep_issues
+  - crisis_self_harm
+  - request_video
+
+slots:
+  last_sentiment:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  last_emotion:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_greet:
+    - text: "Hello, I'm glad you checked in today. This is a calm, judgment-free space — how are you feeling right now, and what has been on your mind?"
+  utter_goodbye:
+    - text: "Thank you for taking time to check in with yourself today. Be gentle with yourself, and come back anytime you want to talk."
+  utter_iamabot:
+    - text: "I'm your Mental Health Support Chatbot powered by Rasa NLU and sentiment analysis. I listen to how you're feeling, offer supportive coping steps, and recommend helpful videos tailored to your mood."
+  utter_thank_you:
+    - text: "You are very welcome. Checking in with your emotions takes real care — I'm right here whenever you'd like to continue reflecting."
+  utter_ask_help:
+    - text: "You can share whatever is on your mind — whether you feel happy, stressed, anxious, sad, tired, or just neutral. I'll analyze your emotional tone in real time, talk through supportive steps with you, and suggest curated mental health videos to help."
+  utter_affirm:
+    - text: "I'm here with you. Take your time and share whatever feels comfortable."
+  utter_deny:
+    - text: "That's completely okay — there is no pressure at all. Let me know what would feel most helpful right now."
+
+actions:
+  - action_therapist_sentiment_response
+  - action_recommend_video
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
